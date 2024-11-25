@@ -1,0 +1,18 @@
+%{
+%}
+
+%%
+
+"if"|"else"|"while"|"do"|"main"|"return" {printf("\n keyword\n");}
+. {printf("\n not keyword\n");}
+
+%%
+
+int yywrap() {
+}
+int main()
+{
+printf("\n enter input:");
+yylex();
+return 0;
+}

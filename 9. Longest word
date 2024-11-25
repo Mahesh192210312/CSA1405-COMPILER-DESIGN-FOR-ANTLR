@@ -1,0 +1,16 @@
+%{
+#include<string.h>
+int len1=0,len2=0;
+char word[10];
+%}
+%%
+[^(" "\"n")]+ {len2=strlen(yytext); if(len2>len1) {len1=len2;strcpy(word,yytext);}}
+%%
+int yywrap(void) {}
+int main()
+{
+printf("enter the string:");
+yylex();
+printf("the longest word length:%d\nlongest word: %s",len1,word);
+return 0;
+}

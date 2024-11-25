@@ -1,0 +1,39 @@
+%{
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX 100
+
+char numbers[MAX][MAX];
+char words[MAX][MAX];
+int numIndex = 0, wordIndex = 0;
+%}
+
+%%
+[0-9]+              { strcpy(numbers[numIndex++], yytext); } /* Matches numbers */
+[a-zA-Z]+           { strcpy(words[wordIndex++], yytext); }  /* Matches words */
+[ \t\n]+            { /* Ignore whitespace */ }
+.                   { /* Ignore other characters */ }
+%%
+
+int yywrap() {
+    return 1;  // Signal end of input
+}
+
+int main() {
+    printf("Enter a statement:\n");
+    yylex();  // Start lexical analysis
+
+    printf("\nNumbers:\n");
+    for (int i = 0; i < numIndex; i++) {
+        printf("%s\n", numbers[i]);
+    }
+
+    printf("\nWords:\n");
+    for (int i = 0; i < wordIndex; i++) {
+        printf("%s\n", words[i]);
+    }
+
+    return 0;
+}

@@ -1,0 +1,19 @@
+%{
+%}
+
+%%
+"https://www."[a-z]+".com" {printf("\nURL valid\n");}
+.+ {printf("\nURL invalid\n");}
+%%
+
+int yywrap(){
+return 1;
+}
+
+int main()
+{
+printf("Enter URL:");
+yylex();
+printf("\n");
+return 0;	
+}

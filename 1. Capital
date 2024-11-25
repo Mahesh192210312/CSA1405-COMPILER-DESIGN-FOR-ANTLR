@@ -1,0 +1,20 @@
+%{
+%}
+
+%%
+[A-Z]* {printf("\nCapital\n");}
+
+.+ {printf("\nNot capital\n");}
+
+%%
+
+int yywrap(void){
+}
+
+int main(){
+
+printf("\nEnter the input: ");
+yylex();
+return 0;
+}
+

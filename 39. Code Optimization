@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+// Function to check if a subexpression already exists
+int isCommonSubexpression(char subexpressions[MAX][MAX], int count, char* subexpr) {
+    for (int i = 0; i < count; i++) {
+        if (strcmp(subexpressions[i], subexpr) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int main() {
+    char expression[MAX];
+    char subexpressions[MAX][MAX];
+    int subexprCount = 0;
+
+    printf("Enter a mathematical expression (e.g., t1=a+b; t2=a+b; t3=t1+c):\n");
+    fgets(expression, MAX, stdin);
+
+    printf("\nOriginal Expression:\n%s", expression);
+
+    printf("\nOptimizing the expression...\n");
+
+    char optimizedExpression[MAX] = "";
+    char* token = strtok(expression, ";");
+
+    while (token != NULL) {
+        char currentSubexpr[MAX];
+        strcpy(currentSubexpr, token);
+
+        if (!isCommonSubexpression(subexpressions, subexprCount, currentSubexpr)) {
+            strcpy(subexpressions[subexprCount++], currentSubexpr);
+            strcat(optimizedExpression, currentSubexpr);
+            strcat(optimizedExpression, ";");
+        } else {
+            printf("Eliminating common subexpression: %s\n", currentSubexpr);
+        }
+
+        token = strtok(NULL, ";");
+    }
+
+    printf("\nOptimized Expression:\n%s\n", optimizedExpression);
+
+    return 0;
+}

@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int main() {
+    char ch;
+    int charCount = 0, wordCount = 0, lineCount = 0;
+    int inWord = 0;
+    char input[1000];  
+    printf("Enter text (enter '-1' to end):\n");
+    while (1) {
+        fgets(input, sizeof(input), stdin);
+        if (strcmp(input, "-1\n") == 0 || strcmp(input, "-1") == 0) {
+            break;
+        }
+        for (int i = 0; input[i] != '\0'; i++) {
+            ch = input[i];
+            charCount++;
+            if (ch == '\n') {
+                lineCount++;
+            }
+            if (isspace(ch)) {
+                inWord = 0;
+            } else if (!inWord) {
+                inWord = 1;
+                wordCount++;
+            }
+        }
+    }
+    if (charCount > 0 && input[strlen(input) - 1] != '\n') {
+        lineCount++;
+    }
+    printf("Characters: %d\n", charCount);
+    printf("Words: %d\n", wordCount);
+    printf("Lines: %d\n", lineCount);
+    return 0;
+}

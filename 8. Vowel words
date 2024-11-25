@@ -1,0 +1,19 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+^[aeiouAEIOU][a-zA-Z]*  { printf("Accepted: %s\n", yytext); } /* Matches strings starting with a vowel */
+.*                      { printf("Rejected: %s\n", yytext); } /* Matches any other string */
+\n                      { /* Ignore newlines */ }
+%%
+
+int yywrap() {
+    return 1;  // Signal end of input
+}
+
+int main() {
+    printf("Enter strings (one per line). Press Ctrl+D (or Ctrl+Z on Windows) to stop:\n");
+    yylex();  // Start lexical analysis
+    return 0;
+}

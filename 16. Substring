@@ -1,0 +1,18 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[a-z]          { printf("%c", yytext[0] - 32); }
+[^a-z]+        { printf("%s", yytext); }
+%%
+
+int yywrap(void) {
+    return 1;
+}
+
+int main() {
+    printf("\n Enter the string: ");
+    yylex();
+    return 0;
+}

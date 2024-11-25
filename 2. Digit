@@ -1,0 +1,18 @@
+%{
+%}
+
+%%
+[0-9] { printf("Input is a digit: %s\n", yytext); }
+. { printf("Input is not a digit: %s\n", yytext); }
+
+%%
+
+int yywrap() {
+    return 1;
+}
+
+int main() {
+    printf("Enter input: ");
+    yylex();
+    return 0;
+}
